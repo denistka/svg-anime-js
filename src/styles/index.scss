@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css?family=Dosis:400');
+
+$body-text-color: #707070;
+$buttons-bg-color: rgba(18, 34, 68, 0.5);
+$buttons-active-bg-color: #2167a4;
+$buttons--text-color: #ffffff;
+$body-font-family: 'Dosis', sans-serif;
+
+
+html {
+  font-size: 10px;
+  width: 100%;
+  height: 100%;
+
+  @media screen and (max-width: 640px) {
+    font-size: calc(10 * 100 / 640  * 1vw);
+  }
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  color: $body-text-color;
+  font-family: $body-font-family;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+.button {
+  box-sizing: border-box;
+  font-size: 1.6rem;
+  padding: .5rem 1rem;
+  margin: 0 .5rem;
+  background: $buttons-bg-color;
+  color: $buttons--text-color;
+  border-radius: .5rem;
+  cursor: pointer;
+  transition: all .3s;
+
+  &:hover,
+  &.is-active {
+    background: $buttons-active-bg-color;
+  }
+}
+
+.svg-wrapper {
+  box-sizing: border-box;
+  padding: 50px;
+  width: 60rem;
+
+  svg {
+    width: 100%;
+  }
+}
