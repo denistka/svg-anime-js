@@ -21,10 +21,10 @@ export default class {
         this.element = element;
         this.states = {};
         this.timeline = null;
-        this.initStateParams('initial');
+        this.initStateParams();
     }
 
-    initStateParams(state) {
+    initStateParams(state = 'initial') {
         return this.states[state] ? this.states[state] : (() => {
             this.states[state] = this.getStateParams(state);
             return this.states[state];
@@ -33,11 +33,11 @@ export default class {
 
 
     getStateParams(state) {
-        let transLinkIdAttr = 'data-transition-link-id';
-        let transOpsAttr = 'data-transition-options';
-        let timelineOffsetAttr = 'data-timeline-offset';
-        let pathElements = this.element.querySelectorAll(`#${state} [${transLinkIdAttr}]`);
-        let result = {};
+        const transLinkIdAttr = 'data-transition-link-id';
+        const transOpsAttr = 'data-transition-options';
+        const timelineOffsetAttr = 'data-timeline-offset';
+        const pathElements = this.element.querySelectorAll(`#${state} [${transLinkIdAttr}]`);
+        const result = {};
 
         pathElements.length && pathElements.forEach((path) => {
             result[path.getAttribute(transLinkIdAttr)] = {
@@ -69,13 +69,13 @@ export default class {
         });
 
         this.states['initial'].forEach((initialStateEl, tLinkId) => {
-            let initialValues = initialStateEl.values;
-            let stateValues = !!this.states[state][tLinkId] ? this.states[state][tLinkId].values : {};
-            let initialTransitionOptions = initialStateEl.transition;
-            let stateTransitionOptions = !!this.states[state][tLinkId] ? this.states[state][tLinkId].transition : {};
-            let timelineOffset = this.states[state][tLinkId] && this.states[state][tLinkId].tlOffset ? this.states[state][tLinkId].tlOffset : initialStateEl.tlOffset;
+            const initialValues = initialStateEl.values;
+            const stateValues = !!this.states[state][tLinkId] ? this.states[state][tLinkId].values : {};
+            const initialTransitionOptions = initialStateEl.transition;
+            const stateTransitionOptions = !!this.states[state][tLinkId] ? this.states[state][tLinkId].transition : {};
+            const timelineOffset = this.states[state][tLinkId] && this.states[state][tLinkId].tlOffset ? this.states[state][tLinkId].tlOffset : initialStateEl.tlOffset;
 
-            let animeParams = {
+            const animeParams = {
                 targets: initialStateEl.path,
                 ...initialValues,
                 ...stateValues,
