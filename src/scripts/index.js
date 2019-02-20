@@ -5,7 +5,7 @@ const buttons = document.querySelectorAll('.button');
 let dragonSvgAnimation = null;
 
 function initButtons() {
-    [...buttons].forEach((el) => {
+    buttons.forEach((el) => {
         el.addEventListener('click', (e) => {
             dragonSvgAnimation.moveTo(e.target.getAttribute('data-emotion-id'));
             document.querySelector('.button.is-active').classList.remove('is-active');
@@ -16,5 +16,8 @@ function initButtons() {
 
 document.addEventListener("DOMContentLoaded", () => {
     initButtons();
-    dragonSvgAnimation = new SvgAnimation(document.getElementById('just-smile'));
+    dragonSvgAnimation = new SvgAnimation({
+        element: document.getElementById('just-smile'),
+        statesIds: ['smile', 'angry', 'surprise']
+    });
 });

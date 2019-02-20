@@ -1,38 +1,17 @@
 import anime from 'animejs';
 
-if (!Object.prototype.forEach) {
-    Object.defineProperty(Object.prototype, 'forEach', {
-        value: function (callback, thisArg) {
-            if (this == null) {
-                throw new TypeError('Not an object');
-            }
-            thisArg = thisArg || window;
-            for (let key in this) {
-                if (this.hasOwnProperty(key)) {
-                    callback.call(thisArg, this[key], key, this);
-                }
-            }
-        }
-    });
-}
-
 export default class {
-    constructor(element) {
-        this.element = element;
+    constructor(options) {
+        this.element = options.element;
+        this.statesIds = options.statesIds;
         this.states = {};
         this.timeline = null;
-        this.initStateParams();
+        this.statesIds && this.statesIds.forEach((state) => {
+            this.initStatesParams(state);
+        });
     }
 
-    initStateParams(state = 'initial') {
-        return this.states[state] ? this.states[state] : (() => {
-            this.states[state] = this.getStateParams(state);
-            return this.states[state];
-        })();
-    }
-
-
-    getStateParams(state) {
+    initStatesParams(state) {
         const transLinkIdAttr = 'data-transition-link-id';
         const transOpsAttr = 'data-transition-options';
         const timelineOffsetAttr = 'data-timeline-offset';
@@ -51,15 +30,13 @@ export default class {
             };
         });
 
-        return pathElements.length ? result : null;
+        this.states[state] = pathElements.length ? result : null;
     }
 
-
     moveTo(state) {
-        !!this.timeline && this.timeline.pause();
-        this.initStateParams(state);
         if (!this.states[state]) return;
 
+        !!this.timeline && this.timeline.pause();
         this.timeline = anime.timeline({
             easing: 'easeOutExpo',
             duration: 500,
@@ -68,15 +45,17 @@ export default class {
             direction: 'normal'
         });
 
-        this.states['initial'].forEach((initialStateEl, tLinkId) => {
-            const initialValues = initialStateEl.values;
-            const stateValues = !!this.states[state][tLinkId] ? this.states[state][tLinkId].values : {};
-            const initialTransitionOptions = initialStateEl.transition;
-            const stateTransitionOptions = !!this.states[state][tLinkId] ? this.states[state][tLinkId].transition : {};
-            const timelineOffset = this.states[state][tLinkId] && this.states[state][tLinkId].tlOffset ? this.states[state][tLinkId].tlOffset : initialStateEl.tlOffset;
+        for (let tLinkId in this.states[this.statesIds[0]]) {
+            const initialState = this.states[this.statesIds[0]][tLinkId];
+            const nextState = this.states[state][tLinkId];
+            const initialValues = initialState.values;
+            const stateValues = !!nextState ? nextState.values : {};
+            const initialTransitionOptions = initialState.transition;
+            const stateTransitionOptions = !!nextState ? nextState.transition : {};
+            const timelineOffset = nextState && nextState.tlOffset ? nextState.tlOffset : initialState.tlOffset;
 
             const animeParams = {
-                targets: initialStateEl.path,
+                targets: initialState.path,
                 ...initialValues,
                 ...stateValues,
                 ...initialTransitionOptions,
@@ -84,6 +63,6 @@ export default class {
             };
 
             this.timeline.add(animeParams, timelineOffset);
-        });
+        }
     }
 }
