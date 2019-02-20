@@ -28,7 +28,7 @@ include to your app
 
 ```
 import  SvgAnimation  from './svg-animation';
-justSmile = new SvgAnimation({
+const justSmile = new SvgAnimation({
         element: document.getElementById('just-smile'),
         statesIds: ['smile', 'angry', 'surprise']
     });
