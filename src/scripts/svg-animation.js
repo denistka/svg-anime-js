@@ -1,5 +1,6 @@
 import anime from 'animejs';
 
+const STATE_GROUP_CLASS_NAME = '.state-group';
 const TRANSITION_LINK_ID_ATTR = 'data-transition-link-id';
 const TRANSITION_OPTIONS_ATTR = 'data-transition-options';
 const TIMELINE_TIME_OFFSET_ATTR = 'data-timeline-offset';
@@ -15,7 +16,7 @@ const DEFAULT_TIMELINE_OPTIONS = {
 export default class {
     constructor(options) {
         this.element = options.element;
-        this.statesIds = options.statesIds;
+        this.statesIds = options.statesIds || this.getStateGroupIds();
         this.baseStateIndex = options.baseStateIndex || 0;
         this.states = {};
         this.timeline = null;
@@ -26,9 +27,16 @@ export default class {
         this.statesIds && this.statesIds.forEach((state) => {
             this.states[state] = this.parseStateParams(state);
         });
+        [...this.element.querySelectorAll(STATE_GROUP_CLASS_NAME)].forEach((group) => {
+            group.setAttribute('visibility', 'hidden');
+        });
         this.element
             .querySelector(`#${this.statesIds[this.baseStateIndex]}`)
             .setAttribute('visibility', 'visible');
+    }
+
+    getStateGroupIds() {
+        return [...this.element.querySelectorAll(STATE_GROUP_CLASS_NAME)].map(group => group.getAttribute('id'));
     }
 
     parseStateParams(state) {
