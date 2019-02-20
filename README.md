@@ -46,7 +46,7 @@ data-timeline-offset - anime.js timeline offset
 
 ```
 <svg>
-        <g id="initial">
+        <g id="initial" visibility="hidden">
             <path
                     data-transition-link-id="face-bg"
                     data-transition-options='{"translateY": 0}'
