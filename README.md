@@ -28,7 +28,11 @@ include to your app
 
 ```
 import  SvgAnimation  from './svg-animation';
-new SvgAnimation(document.getElementById('just-smile'));
+justSmile = new SvgAnimation({
+        element: document.getElementById('just-smile'),
+        statesIds: ['smile', 'angry', 'surprise']
+    });
+justSmile.moveTo('some animation state');    
 ```
 
 make similar inline svg.
