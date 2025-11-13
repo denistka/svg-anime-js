@@ -6,19 +6,25 @@ Implementation of JS class for helping build svg animation. Based on anime.js
 ### Installation
 
 ```
-npm install
+pnpm install
 ```
 
 ### Start Dev Server
 
 ```
-npm start
+pnpm dev
 ```
 
 ### Build Prod Version
 
 ```
-npm run build
+pnpm build
+```
+
+### Preview Prod Build
+
+```
+pnpm preview
 ```
 
 

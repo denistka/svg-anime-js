@@ -1,23 +1,26 @@
-import '../styles/index.scss';
-import  SvgAnimation  from './svg-animation';
+import SvgAnimation from './svg-animation';
 
-const buttons = document.querySelectorAll('.button');
-let justSmile = null;
+function initButtons(animationInstance) {
+  const buttons = document.querySelectorAll('.button');
 
-function initButtons() {
-    [...buttons].forEach((el) => {
-        el.addEventListener('click', (e) => {
-            justSmile.moveTo(e.target.getAttribute('data-emotion-id'));
-            document.querySelector('.button.is-active').classList.remove('is-active');
-            e.target.classList.add('is-active');
-        });
+  buttons.forEach((el) => {
+    el.addEventListener('click', (event) => {
+      const target = event.currentTarget;
+      animationInstance.moveTo(target.getAttribute('data-emotion-id'));
+      document.querySelector('.button.is-active')?.classList.remove('is-active');
+      target.classList.add('is-active');
     });
+  });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    initButtons();
-    justSmile = new SvgAnimation({
-        element: document.getElementById('just-smile'),
-        statesIds: ['smile', 'angry', 'surprise']
-    });
-});
+export function setupSvgAnimation() {
+  const svgElement = document.getElementById('just-smile');
+  if (!svgElement) return;
+
+  const animation = new SvgAnimation({
+    element: svgElement,
+    statesIds: ['smile', 'love', 'angry', 'surprise'],
+  });
+
+  initButtons(animation);
+}

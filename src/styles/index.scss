@@ -1,9 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Dosis:400');
 
-$body-text-color: #707070;
-$buttons-bg-color: rgba(18, 34, 68, 0.5);
-$buttons-active-bg-color: #2167a4;
-$buttons--text-color: #ffffff;
+$color-lavender: #F3A8D6;
+$color-violet: #7B5CFA;
+$color-orange: #FF7231;
+$color-raspberry: #B72264;
+$color-plum: #6F2159;
+$color-periwinkle: #6C57CE;
+
+$body-text-color: $color-lavender;
+$buttons-bg-color: linear-gradient(135deg, rgba($color-orange, 0.9), rgba($color-raspberry, 0.9));
+$buttons-active-bg-color: linear-gradient(130deg, rgba($color-lavender, 0.95), rgba($color-violet, 0.95));
+$buttons--text-color: #fff1fb;
 $body-font-family: 'Dosis', sans-serif;
 
 
@@ -25,10 +32,30 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 15% 15%, rgba($color-lavender, 0.15), transparent 55%),
+              radial-gradient(circle at 85% 25%, rgba($color-violet, 0.25), transparent 60%),
+              linear-gradient(140deg, $color-plum 0%, $color-raspberry 40%, $color-periwinkle 100%);
+  background-attachment: fixed;
+  min-height: 100%;
+  padding: 3rem 1.5rem 4rem;
 }
 
 h1 {
   font-size: 3rem;
+  font-weight: 600;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+  margin-bottom: 2.4rem;
+  text-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.buttons-wrapper {
+  display: flex;
+  gap: 1.2rem;
+  margin-bottom: 2.8rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .button {
@@ -41,19 +68,35 @@ h1 {
   border-radius: .5rem;
   cursor: pointer;
   transition: all .3s;
+  border: 1px solid rgba($color-lavender, 0.5);
+  box-shadow: 0 12px 25px rgba(26, 9, 30, 0.35);
+  backdrop-filter: blur(12px);
+  text-transform: uppercase;
+  letter-spacing: .08rem;
+  padding: .9rem 2.4rem;
 
   &:hover,
   &.is-active {
     background: $buttons-active-bg-color;
+    color: $color-plum;
+    border-color: rgba($color-periwinkle, 0.6);
+    box-shadow: 0 14px 26px rgba(41, 12, 46, 0.45);
   }
 }
 
 .svg-wrapper {
   box-sizing: border-box;
-  padding: 50px;
+  padding: 3.6rem;
   width: 60rem;
+  max-width: 100%;
+  border-radius: 2.4rem;
+  background: linear-gradient(145deg, rgba($color-lavender, 0.18), rgba($color-periwinkle, 0.12));
+  border: 1px solid rgba(#ffffff, 0.18);
+  box-shadow: 0 30px 45px rgba(22, 5, 29, 0.45);
+  backdrop-filter: blur(18px);
 
   svg {
     width: 100%;
+    filter: drop-shadow(0 16px 35px rgba(13, 0, 36, 0.5));
   }
 }
