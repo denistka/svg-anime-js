@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Dosis:400');
 
-$color-lavender: #F3A8D6;
-$color-violet: #7B5CFA;
-$color-orange: #FF7231;
-$color-raspberry: #B72264;
-$color-plum: #6F2159;
-$color-periwinkle: #6C57CE;
+$color-lavender: #ffffffce;
+$color-violet: #7c5cfac7;
+$color-orange: #ff72312b;
+$color-raspberry: #b722653b;
+$color-plum: #6f215999;
+$color-periwinkle: #6d57ce41;
 
 $body-text-color: $color-lavender;
 $buttons-bg-color: linear-gradient(135deg, rgba($color-orange, 0.9), rgba($color-raspberry, 0.9));
@@ -39,6 +39,8 @@ body {
   background-attachment: fixed;
   min-height: 100%;
   padding: 3rem 1.5rem 4rem;
+  box-sizing: border-box;
+  margin: 0;
 }
 
 h1 {
@@ -89,11 +91,6 @@ h1 {
   padding: 3.6rem;
   width: 60rem;
   max-width: 100%;
-  border-radius: 2.4rem;
-  background: linear-gradient(145deg, rgba($color-lavender, 0.18), rgba($color-periwinkle, 0.12));
-  border: 1px solid rgba(#ffffff, 0.18);
-  box-shadow: 0 30px 45px rgba(22, 5, 29, 0.45);
-  backdrop-filter: blur(18px);
 
   svg {
     width: 100%;
